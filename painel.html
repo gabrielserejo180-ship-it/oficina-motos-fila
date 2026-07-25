@@ -295,6 +295,14 @@
     utter.lang = 'pt-BR';
     if(vozPt) utter.voice = vozPt;
     utter.rate = 0.95;
+
+    // Abaixa o volume da propaganda enquanto a voz fala, e volta ao normal depois
+    const volumeNormal = adVideo.volume;
+    const volumeAbaixado = 0.15;
+    utter.onstart = () => { adVideo.volume = volumeAbaixado; };
+    utter.onend = () => { adVideo.volume = volumeNormal; };
+    utter.onerror = () => { adVideo.volume = volumeNormal; };
+
     speechSynthesis.speak(utter);
   }
 
